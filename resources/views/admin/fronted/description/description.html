@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Description Form</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .description-wrapper {
+            margin-top: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .toolbar {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .toolbar button {
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .toolbar button:hover {
+            background-color: #e9ecef;
+        }
+
+        .description-editor {
+            border: 1px solid #ccc;
+            border-radius: 0 0 5px 5px;
+            padding: 15px;
+            min-height: 250px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .description-editor:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        /* Custom button icons */
+        .btn-icon {
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Active buttons state */
+        .toolbar button.active {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container description-wrapper">
+    <h3>Submit Description</h3>
+    <form action="your-backend-url-here" method="POST" onsubmit="return submitForm()">
+        <div class="toolbar">
+            <button type="button" class="btn btn-icon" onclick="formatText('bold')" title="Bold"><b>B</b></button>
+            <button type="button" class="btn btn-icon" onclick="formatText('italic')" title="Italic"><i>I</i></button>
+            <button type="button" class="btn btn-icon" onclick="formatText('underline')" title="Underline"><u>U</u></button>
+            <button type="button" class="btn btn-icon" onclick="formatText('insertOrderedList')" title="Ordered List">OL</button>
+            <button type="button" class="btn btn-icon" onclick="formatText('insertUnorderedList')" title="Unordered List">UL</button>
+        </div>
+
+        <div class="description-editor" contenteditable="true" id="descriptionEditor">
+            Write your description here...
+        </div>
+
+        <!-- Hidden input field to store the formatted description -->
+        <input type="hidden" id="descriptionInput" name="description">
+
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript for formatting text and form submission -->
+<script>
+    function formatText(command) {
+        document.execCommand(command, false, null);
+    }
+
+    function submitForm() {
+        // Get the content of the description editor
+        const editorContent = document.getElementById('descriptionEditor').innerHTML;
+
+        // Set the hidden input value to the editor's content
+        document.getElementById('descriptionInput').value = editorContent;
+
+        return true; // Allow form submission
+    }
+</script>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
